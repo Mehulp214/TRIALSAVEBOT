@@ -3,6 +3,7 @@
 import asyncio, time, os
 
 from .. import bot as Drone
+from .. import Bot
 from .. import userbot as app
 from main.plugins.progress import progress_for_pyrogram
 from main.plugins.helpers import screenshot
@@ -27,7 +28,7 @@ API_HASH="1626e884119a29dbccbb78e39b48128f"
 user_sessions = {}
 
 
-@Drone.on_message(filters.command("addsession", prefixes="."))
+@Bot.on_message(filters.command("addsession", prefixes="."))
 async def add_session_command(client, message):
     try:
         user_id = message.from_user.id
