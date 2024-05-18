@@ -27,7 +27,7 @@ API_HASH="1626e884119a29dbccbb78e39b48128f"
 user_sessions = {}
 
 
-@Bot.on_message(filters.command("addsession", prefixes="."))
+@Drone.on_message(filters.command("addsession", prefixes="."))
 async def add_session_command(client, message):
     try:
         user_id = message.from_user.id
