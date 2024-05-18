@@ -237,7 +237,7 @@ async def get_msg(userbots, client, bot, sender, edit_id, msg_link, i):
         
 async def get_bulk_msg(userbots, client, sender, msg_link, i):
     x = await client.send_message(sender, "Processing!")
-    await get_msg(userbot, client, Drone, sender, x.id, msg_link, i)
+    await get_msg(userbots, client, Drone, sender, x.id, msg_link, i)
 
 @app.on_message(filters.me & filters.reply & filters.command("link", prefixes="."))
 async def handle_link_command(client, message):
