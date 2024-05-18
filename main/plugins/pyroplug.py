@@ -77,7 +77,7 @@ async def get_msg(userbots, client, bot, sender, edit_id, msg_link, i):
                     await edit.delete()
                     return
             edit = await client.edit_message_text(sender, edit_id, "Trying to Download.")
-            file = await userbot.download_media(
+            file = await userbots.download_media(
                 msg,
                 progress=progress_for_pyrogram,
                 progress_args=(
@@ -175,7 +175,7 @@ async def get_msg(userbots, client, bot, sender, edit_id, msg_link, i):
                 new_link = f"t.me/c/{chat}/{msg_id}"
             except:
                 new_link = f"t.me/b/{chat}/{msg_id}"
-            return await get_msg(userbot, client, bot, sender, edit_id, msg_link, i)
+            return await get_msg(userbots, client, bot, sender, edit_id, msg_link, i)
         except Exception as e:
             print(e)
             if "messages.SendMedia" in str(e) \
