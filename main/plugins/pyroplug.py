@@ -35,7 +35,7 @@ async def add_session_command(client, message):
         session_string = message.text.split(" ", 1)[1]
         user_sessions[user_id] = session_string
         await message.reply_text("Session added successfully!")
-        userbots = Client("saverestricted", session_string=SESSION, api_hash=API_HASH, api_id=API_ID) 
+        userbots = Client("saverestricted", session_string=session_string, api_hash=API_HASH, api_id=API_ID) 
         await userbots.start()
     except Exception as e:
         await message.reply_text(f"Failed to add session: {e}")
