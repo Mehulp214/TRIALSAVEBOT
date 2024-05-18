@@ -21,7 +21,28 @@ def thumbnail(sender):
     else:
          return None
       
-async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
+API_ID=23476439
+API_HASH="1626e884119a29dbccbb78e39b48128f"
+
+user_sessions = {}
+
+
+@Bot.on_message(filters.command("addsession", prefixes="."))
+async def add_session_command(client, message):
+    try:
+        user_id = message.from_user.id
+        session_string = message.text.split(" ", 1)[1]
+        user_sessions[user_id] = session_string
+        await message.reply_text("Session added successfully!")
+        userbot = Client("saverestricted", session_string=SESSION, api_hash=API_HASH, api_id=API_ID) 
+    except Exception as e:
+        await message.reply_text(f"Failed to add session: {e}")
+        
+
+
+userbots = Client("saverestricted", session_string=SESSION, api_hash=API_HASH, api_id=API_ID) 
+
+async def get_msg(userbots, client, bot, sender, edit_id, msg_link, i):
     
     """ userbot: PyrogramUserBot
     client: PyrogramBotClient
@@ -41,7 +62,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             chat = int('-100' + str(msg_link.split("/")[-2]))
         file = ""
         try:
-            msg = await userbot.get_messages(chat, msg_id)
+            msg = await userbots.get_messages(chat, msg_id)
             if msg.media:
                 if msg.media==MessageMediaType.WEB_PAGE:
                     edit = await client.edit_message_text(sender, edit_id, "Cloning.")
@@ -213,7 +234,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             return await client.edit_message_text(sender, edit_id, f'Failed to save: `{msg_link}`\n\nError: {str(e)}')
         await edit.delete()
         
-async def get_bulk_msg(userbot, client, sender, msg_link, i):
+async def get_bulk_msg(userbots, client, sender, msg_link, i):
     x = await client.send_message(sender, "Processing!")
     await get_msg(userbot, client, Drone, sender, x.id, msg_link, i)
 
